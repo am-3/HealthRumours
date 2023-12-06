@@ -3,13 +3,14 @@
     "name":"Test",
     "version":"1.0",
     "permissions": [
-        "activeTab",
-        "scripting",
-        "tabs"
+        "activeTab"
     ],
-    "background":{
-        "service_worker":"background.js"
-    },
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "js": ["content.js"]
+        }
+      ],
     "action":{
         "default_icon":"fake.png"
     }
