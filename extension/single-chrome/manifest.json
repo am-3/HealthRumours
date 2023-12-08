@@ -16,6 +16,11 @@
 			"matches": ["https://twitter.com/*"],
 			"js": ["twitter.js"],
 			"run_at": "document_idle"
+		},
+		{
+			"matches": ["https://www.facebook.com/*"],
+			"js": ["facebook.js"],
+			"run_at": "document_idle"
 		}
 	],
 	"background": {
