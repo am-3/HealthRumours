@@ -6,5 +6,24 @@
     "action":{
         "default_popup": "popup.html"
     },
-    "permissions": ["activeTab","scripting"]
+    "permissions": [
+		"tabs",
+		"activeTab",
+		"scripting"
+	],
+	"content_scripts":[
+		{
+			"matches": ["https://twitter.com/*"],
+			"js": ["twitter.js"],
+			"run_at": "document_idle"
+		},
+		{
+			"matches": ["<all_urls>"],
+			"js": ["analysis.js"],
+			"run_at": "document_start"
+		}
+	],
+	"background": {
+		"service_worker": "background.js"
+	}
 }
