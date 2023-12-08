@@ -16,11 +16,6 @@
 			"matches": ["https://twitter.com/*"],
 			"js": ["twitter.js"],
 			"run_at": "document_idle"
-		},
-		{
-			"matches": ["<all_urls>"],
-			"js": ["analysis.js"],
-			"run_at": "document_start"
 		}
 	],
 	"background": {
