@@ -1,41 +1,35 @@
-/*
-let scrapeContent = document.getElementById('scrapeContent');
-let list = document.getElementById('contentList');
-
-prev = "first"
-count = 0
-
 chrome.runtime.onMessage.addListener((request,sender,sendResponse) => {
-     let paragraphs = request.paragraphs;
-     if(paragraphs == null || paragraphs.length == 0) {
-        let li = document.createElement("li");
-        li.innerText = "No paragraphs found";
-        list.appendChild(li);
-     }
-     else {
-        paragraphs.forEach((paragraph) => {
-            let li = document.createElement("li");
-            li.innerText = paragraph;
-			if(paragraph.length > 5){
-				if(prev === paragraph){
-					console.log("Post " + count);
-					count += 1;
-				}
-				else{
-					console.log(paragraph);
-				}
-				prev = paragraph;
-			}
-            list.appendChild(li);
-        });
-     }
+	let text = request.text;
+	let display = document.getElementById('displayText');
+	display.innerHTML = text;
 })
 
-scrapeContent.addEventListener("click", async() => {
+getContent.addEventListener("click", async() => {
    	let [tab] = await chrome.tabs.query({active: true, currentWindow: true});
  	chrome.scripting.executeScript({
    	    target: {tabId: tab.id},
-   	    func: scrapeContentFromPage,
+   	    func: logger,
    	});
 });
-*/
+
+function logger (){
+        let selectedText = '';
+        const selection = window.getSelection();
+
+
+        if (selection && selection.toString()) {
+        	selectedText = selection.toString();
+        	console.log("Selected text:", selectedText);
+        } else {
+        	console.log("No text selected.");
+			selectedText = 'No text selected.';
+        }
+    	chrome.runtime.sendMessage({text: selectedText});
+}
+
+chrome.action.onClicked.addListener(function (tab) {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: logger,
+      })
+});
