@@ -1,10 +1,14 @@
 {
-    "name": "Web Scraper",
+    "name": "Web Scraper-Whatsapp",
     "description": "Scrape content from any web page",
     "version": "0.5",
     "manifest_version": 3,
     "action":{
-        "default_popup": "popup.html"
+        "default_popup": "popup.html",
+        "default_icon":"logo.png"
     },
-    "permissions": ["activeTab","scripting"]
+    "permissions": ["activeTab","scripting","tabs"],
+    "background":{
+        "service_worker":"background.js"
+    }
 }
