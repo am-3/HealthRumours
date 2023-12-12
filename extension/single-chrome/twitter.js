@@ -2,7 +2,6 @@ prev = "first";
 count = 0;
 
 function scrapeContentFromPage() {
- 
     let para = document.querySelectorAll('span, img'); // Adjust for other elements containing paragraphs
 
     let paragraphTexts = Array.from(para).map(p => {
@@ -40,6 +39,14 @@ function scrapeContentFromPage() {
 		prev = element;
 	});
 
-    chrome.runtime.sendMessage({paragraphs: finalArray});
+	let paragraphs = finalArray;
+     if(paragraphs == null || paragraphs.length == 0) {
+     }
+     else {
+        paragraphs.forEach((paragraph) => {
+			console.log(paragraph);
+        });
+     }
 }
 setTimeout(scrapeContentFromPage, 5000);
+window.addEventListener('scroll', scrapeContentFromPage);
