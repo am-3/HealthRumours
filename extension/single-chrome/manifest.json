@@ -7,8 +7,24 @@
         "default_popup": "popup.html",
         "default_icon":"logo.png"
     },
-    "permissions": ["activeTab","scripting","tabs"],
-    "background":{
-        "service_worker":"background.js"
-    }
+    "permissions": [
+		"tabs",
+		"activeTab",
+		"scripting"
+	],
+	"content_scripts":[
+		{
+			"matches": ["https://twitter.com/*"],
+			"js": ["twitter.js"],
+			"run_at": "document_idle"
+		},
+		{
+			"matches": ["https://www.facebook.com/*"],
+			"js": ["facebook.js"],
+			"run_at": "document_idle"
+		}
+	],
+	"background": {
+		"service_worker": "background.js"
+	}
 }
