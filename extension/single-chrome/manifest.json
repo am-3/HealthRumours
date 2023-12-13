@@ -1,5 +1,5 @@
 {
-    "name": "Web Scraper-Whatsapp",
+    "name": "Web Scraper",
     "description": "Scrape content from any web page",
     "version": "0.5",
     "manifest_version": 3,
@@ -17,6 +17,7 @@
 			"matches": ["https://twitter.com/*"],
 			"js": ["twitter.js"],
 			"run_at": "document_idle"
+			
 		},
 		{
 			"matches": ["https://www.facebook.com/*"],
