@@ -16,8 +16,11 @@ async function getCurrentTabUrl(){
 }
 
 function extractnew() {
-  let srcURL = getCurrentTabUrl();
-  let articleTitle_value = document.getElementsByTagName('H1')[0].textContent;
+  let srcURL = window.location.href;
+  let articleTitle_value = "Title of the post";
+    if(document.getElementsByTagName('H1')[0].textContent){
+      articleTitle_value = document.getElementsByTagName('H1')[0].textContent;
+    }
   let articleContent_value = "";
   let imageURL_value = "";
 
@@ -69,7 +72,7 @@ function extractnew() {
              }
            else {
               console.log(element.innerText.trim());
-              articleContent_value += substring.trim();
+              articleContent_value += element.innerText.trim();
            }
          }
        }
