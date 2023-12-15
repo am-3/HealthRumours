@@ -12,9 +12,20 @@
 		<h2>Selected Text</h2>
 		<h3 id="displayText"></h3>
 	</div>
+  <div class="center">
+    <h4>Enter your reasons for thinking that this news is fake?</h2>
+  </div>
 	<div class="center">
-		<textarea id="reasons">Enter why do you think this news is fake?</textarea>
+		<textarea id="reasons"></textarea>
 	</div>
+  <div class="center">
+    <h4>Enter any links to back up your claims</h4>
+    <textarea id="proofURL"></textarea>
+  </div>
+  <div class="center">
+    <input type="range" id="confidence" name="confidence" min="1" max="100"/>
+    <label for="confidence">Confidence in your belief that this information is fake</label>
+  </div>
 	<div class="center">
 		<button id="submit">Submit</button>
 	</div>
