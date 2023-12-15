@@ -80,7 +80,7 @@ submitButton.addEventListener("click", function() {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'Host': url
+			'Host': 'http://127.0.0.1:8000/check/'
 		}
 	})
 	.then(response => response.json())
