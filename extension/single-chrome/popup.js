@@ -36,16 +36,26 @@ chrome.action.onClicked.addListener(function (tab) {
 
 let submitButton = document.getElementById("submit");
 
+async function getCurrentTabUrl(){
+	const tabs = await chrome.tabs.query({active: true})
+	return tabs[0].url
+}
+
 submitButton.addEventListener("click", function() {
 	let text = document.getElementById('displayText');
-	console.log("Selection: " + text.innerHTML);
+	let slider = document.getElementById('confidence');
+	let srcURL = getCurrentTabUrl();
+	let proofURL_box = document.getElementById('proofURL');
 	let reasons = document.getElementById("reasons");
-	console.log("Reasons for being fake: " + reasons.value);
 	const data = {
 		selectedContent: text.innerHTML,
+		confidence: slider.value,
+		imageURL: ' ',
+		sourceURL: srcURL,
+		proofURL: proofURL_box.value,
 		userFeedback: reasons.value
 	};
-	const url = 'http://127.0.0.1:8000/insert/'
+	const url = 'http://127.0.0.1:8000/insertUser/'
 	fetch(url, {
 		method: 'POST',
 		headers: {
