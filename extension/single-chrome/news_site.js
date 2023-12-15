@@ -10,7 +10,17 @@ function countWords(text) {
 	}
 }
 
+async function getCurrentTabUrl(){
+	const tabs = await chrome.tabs.query({active: true})
+	return tabs[0].url
+}
+
 function extractnew() {
+  let srcURL = getCurrentTabUrl();
+  let articleTitle_value = document.getElementsByTagName('H1')[0].textContent;
+  let articleContent_value = "";
+  let imageURL_value = "";
+
   const allSectionsAndDivs = document.querySelectorAll("section, div");
   const header = document.querySelector("header");
   const footer = document.querySelector("footer");
@@ -54,16 +64,19 @@ function extractnew() {
              	let substring = element.innerText.substring(0, index);
                if (substring){
 	    	  	      console.log(substring.trim());
+                  articleContent_value += substring.trim();
 	    		      }
              }
            else {
-               console.log(element.innerText.trim());
+              console.log(element.innerText.trim());
+              articleContent_value += substring.trim();
            }
          }
        }
 	    	else{
 	    	  let url = element.src;
 	    		console.log(url);
+          imageURL_value += url;
 	    	}
 	  }
 	  tagArray = ["a", "i", "strong", "b", "style"];
@@ -79,18 +92,19 @@ function extractnew() {
             let substring = element.innerText.substring(0, index);
             if (substring){
 				        console.log(substring.trim());
+                articleContent_value += substring.trim();
 			      }
           }
           else {
             console.log(element.classList.toString());
             console.log(element.innerText.trim());
+            articleContent_value += element.innerText.trim();
             return;
           }
         }
       }
     }
   }
-
   if (req_div) {
     const childrenOfReqDiv = req_div.children;
     for (let i = 0; i < childrenOfReqDiv.length; i++) {
@@ -101,7 +115,26 @@ function extractnew() {
       }
     }
   }
-  
   console.log("Max height of divs:", maxHeight);
-
+  const data = {
+    sourceURL: srcURL,
+    articleTitle: articleTitle_value,
+    articleContent: articleContent_value,
+    imageURL: imageURL_value
+  }
+	fetch('http://127.0.0.1:8000/insertNews/', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Host': 'http://127.0.0.1:8000/insertNews/'
+ 		},
+		body: JSON.stringify(data)
+	})
+	.then(response => response.json())
+	.then(data => {
+		console.log('Success:', data);
+	})
+	.catch((error) => {
+		console.error('Error: ', error);
+	});
 }
