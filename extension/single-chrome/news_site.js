@@ -10,11 +10,6 @@ function countWords(text) {
 	}
 }
 
-async function getCurrentTabUrl(){
-	const tabs = await chrome.tabs.query({active: true})
-	return tabs[0].url
-}
-
 function extractnew() {
   let srcURL = window.location.href;
   let articleTitle_value = "Title of the post";
