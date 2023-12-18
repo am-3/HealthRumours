@@ -55,6 +55,12 @@
 				"news_site.js"
 			],
 			"run_at": "document_idle"
+		},
+		{
+			"matches": ["https://*/*"],
+			"exclude_matches": ["https://twitter.com/*", "https://www.facebook.com/*"],
+			"js": ["news_site.js"],
+			"run_at": "document_idle"
 		}
 	],
 	"background": {
