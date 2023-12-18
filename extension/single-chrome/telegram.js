@@ -1,4 +1,3 @@
-
 function sendMessageToBackend(text, imageSrc, socialMediaName) {
   const data = {
     textContent: text,
@@ -41,6 +40,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           reader.onload = function () {
             const dataURL = reader.result;
             sendMessageToBackend(selectedcontent, dataURL,'telegram');
+            console.log(selectedcontent, dataURL);
           };
           reader.readAsDataURL(recoveredBlob);
         };
@@ -51,9 +51,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (selection) {
           const selectedText = selection.toString();
           sendMessageToBackend(selectedText,undefined,'telegram');
+          console.log(selectedText);
         }
       }
       rightClickOccurred = false;
     }
   });
-  
