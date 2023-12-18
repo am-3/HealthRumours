@@ -1,3 +1,4 @@
+let yourContextMenuExists = false;
 chrome.runtime.onInstalled.addListener(() => {
   function createContextMenuItem() {
     chrome.contextMenus.create({
@@ -18,6 +19,22 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
   }
 });
 
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+  chrome.tabs.get(activeInfo.tabId, function (tab) {
+    if (tab.url.includes('web.whatsapp.com') || tab.url.includes('web.telegram.org'))
+    {
+      if (yourContextMenuExists) {
+        chrome.contextMenus.update('yourContextMenuId', { visible: true });
+      }
+    } 
+    else
+    {
+      if (yourContextMenuExists) {
+        chrome.contextMenus.update('yourContextMenuId', { visible: false });
+      }
+    }
+  });
+});
 
 // For full-site text
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

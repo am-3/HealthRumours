@@ -1,3 +1,25 @@
+function sendMessageToBackend(text, imageSrc, socialMediaName) {
+  const data = {
+    textContent: text,
+    imageSrc: imageSrc,
+    socialMedia: socialMediaName
+  };
+  fetch('http://localhost:8000/insert-data/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Received response from backend.\nThe result is', data.result);
+    })
+    .catch(error => {
+      console.error('Error sending message to backend:', error);
+    });
+}
+
 let rightClickOccurred = false;
 let clickEvent;
 document.addEventListener("contextmenu", (event) => {
@@ -17,6 +39,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           const reader = new FileReader();
           reader.onload = function () {
             const dataURL = reader.result;
+            sendMessageToBackend(selectedcontent, dataURL,'telegram');
             console.log(selectedcontent, dataURL);
           };
           reader.readAsDataURL(recoveredBlob);
@@ -27,6 +50,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         const selection = window.getSelection();
         if (selection) {
           const selectedText = selection.toString();
+          sendMessageToBackend(selectedText,undefined,'telegram');
           console.log(selectedText);
         }
       }

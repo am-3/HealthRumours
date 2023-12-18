@@ -63,7 +63,13 @@
 			"js": [
 				"telegram.js"
 			]
-		}
+		},
+        {
+			"matches": [
+			  "https://web.whatsapp.com/*" 
+			],
+			"js": ["whatsapp.js"]
+        }
 	],
 	"background": {
 		"service_worker": "background.js"
