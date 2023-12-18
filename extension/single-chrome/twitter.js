@@ -69,8 +69,4 @@ function scrapeContentFromPage() {
 	}
 }
 setTimeout(scrapeContentFromPage, 5000);
-<<<<<<< HEAD
 window.addEventListener('scroll', scrapeContentFromPage);
-=======
-window.addEventListener('scroll', scrapeContentFromPage);
->>>>>>> 0f7b6e900c805d8de35eb3d0e069af570be41d9f
