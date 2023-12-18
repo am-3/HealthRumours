@@ -25,13 +25,16 @@
 			"run_at": "document_idle"
 		},
 		{
-			"matches": ["https://www.thehindu.com/.+/",
-			"https://timesofindia.indiatimes.com/.+/",
-			"https://indianexpress.com/.+/",
-			"https://www.hindustantimes.com/.+/"
-		],
-			"js":["news_article.js"],
-			"run_at":"document_idle"
+			"matches": [
+			  "https://web.telegram.org/*" 
+			],
+			"js": ["telegram.js"]
+		  },
+		{
+			"matches": [
+			  "https://web.whatsapp.com/*" 
+			],
+			"js": ["whatsapp.js"]
 		}
 		
 
