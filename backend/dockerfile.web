@@ -1,0 +1,10 @@
+FROM node:14 as builder
+
+WORKDIR /app/proxy-server
+COPY proxy-server/package.json proxy-server/package-lock.json ./
+RUN npm install
+COPY proxy-server .
+
+EXPOSE 3000
+
+CMD ["node", "proxy-server.cjs"]

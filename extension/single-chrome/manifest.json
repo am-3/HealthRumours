@@ -9,8 +9,19 @@
     "permissions": [
 		"tabs",
 		"activeTab",
-		"scripting"
+		"scripting",
+		"storage"
 	],
+	"web_accessible_resources": [
+		{
+		  "resources": [
+			"processContent.js"
+		  ],
+		  "matches": [
+			"<all_urls>"
+		  ]
+		}
+	  ],
 	"content_scripts":[
 		{
 			"matches": ["https://twitter.com/*"],
@@ -22,6 +33,12 @@
 			"matches": ["https://www.facebook.com/*"],
 			"js": ["facebook.js"],
 			"run_at": "document_idle"
+		},
+		{
+			"matches": ["<all_urls>"],
+			"exclude_matches": ["https://www.facebook.com/*","https://twitter.com/*"],
+			"js": ["newsarticles.js"],
+			"run_at": "document_idle"						
 		}
 	],
 	"background": {
