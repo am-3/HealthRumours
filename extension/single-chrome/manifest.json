@@ -25,6 +25,10 @@
 			"run_at": "document_idle"
 		},
 		{
+			"matches": ["https://web.telegram.org/*"],
+			"js": ["telegram.js"]
+		},
+		{
 			"matches": ["https://www.thehindu.com/.+/",
 			"https://timesofindia.indiatimes.com/.+/",
 			"https://indianexpress.com/.+/",
