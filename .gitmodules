@@ -1,0 +1,3 @@
+[submodule "HealthRumoursAPI"]
+	path = HealthRumoursAPI
+	url = https://github.com/dangolfecho/HealthRumoursAPI.git
