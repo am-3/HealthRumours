@@ -1,3 +1,25 @@
+chrome.runtime.onInstalled.addListener(() => {
+  function createContextMenuItem() {
+    chrome.contextMenus.create({
+      id: "yourContextMenuId",
+      title: "Detect for fake news",
+      contexts: ["all"]
+    });
+  }
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message && message.action === "createContextMenu") {
+      createContextMenuItem();
+    }
+  }); 
+});
+chrome.contextMenus.onClicked.addListener(function (info, tab) {
+  if (info.menuItemId === "yourContextMenuId") {
+    chrome.tabs.sendMessage(tab.id, { action: "executeCustomAction" });
+  }
+});
+
+
+// For full-site text
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
      let paragraphs = request.paragraphs;
      if(paragraphs == null || paragraphs.length == 0) {
@@ -27,4 +49,3 @@ chrome.action.onClicked.addListener(function (tab) {
       target: { tabId: tab.id },
       func: logger,
       })
-});
