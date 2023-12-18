@@ -1,25 +1,59 @@
 {
-    "name": "Web Scraper",
-    "description": "Scrape content from any web page",
-    "version": "1.0",
-    "manifest_version": 3,
-    "action":{
-        "default_popup": "popup.html"
-    },
-    "permissions": [
+	"name": "Web Scraper",
+	"description": "Scrape content from any web page",
+	"version": "0.5",
+	"manifest_version": 3,
+	"action": {
+		"default_popup": "popup.html",
+		"default_icon": "logo.png"
+	},
+	"permissions": [
 		"tabs",
 		"activeTab",
 		"scripting"
 	],
-	"content_scripts":[
+	"content_scripts": [
 		{
-			"matches": ["https://twitter.com/*"],
-			"js": ["twitter.js"],
+			"matches": [
+				"https://twitter.com/*"
+			],
+			"js": [
+				"twitter.js"
+			],
 			"run_at": "document_idle"
 		},
 		{
-			"matches": ["https://www.facebook.com/*"],
-			"js": ["facebook.js"],
+			"matches": [
+				"https://www.facebook.com/*"
+			],
+			"js": [
+				"facebook.js"
+			],
+			"run_at": "document_idle"
+		},
+		{
+			"matches": [
+				"https://www.thehindu.com/.+/",
+				"https://timesofindia.indiatimes.com/.+/",
+				"https://indianexpress.com/.+/",
+				"https://www.hindustantimes.com/.+/"
+			],
+			"js": [
+				"news_article.js"
+			],
+			"run_at": "document_idle"
+		},
+		{
+			"matches": [
+				"https://*/*"
+			],
+			"exclude_matches": [
+				"https://twitter.com/*",
+				"https://www.facebook.com/*"
+			],
+			"js": [
+				"news_site.js"
+			],
 			"run_at": "document_idle"
 		},
 		{
