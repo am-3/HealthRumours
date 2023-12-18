@@ -1,0 +1,21 @@
+{
+    "manifest_version":3,
+    "name": "Testing",
+    "version": "0.5",
+    "author": "@IIITT",
+    "permissions":[
+        "activeTab",
+        "scripting",
+        "tabs",
+        "http://*/",
+        "https://*/"
+    ],
+    "background":{
+        "service_worker": "payload.js"
+
+    },
+    "action":{
+        "default_icon": "logo.png",
+		"default_popup": "popup.html"
+    }
+}
