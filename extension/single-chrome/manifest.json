@@ -11,7 +11,8 @@
 		"tabs",
 		"activeTab",
 		"scripting",
-		"storage"
+		"storage",
+		"contextMenus"
 	],
 	"content_scripts": [
 		{
@@ -50,7 +51,9 @@
 			],
 			"exclude_matches": [
 				"https://twitter.com/*",
-				"https://www.facebook.com/*"
+				"https://www.facebook.com/*",
+				"https://web.telegram.org/*",
+				"https://web.whatsapp.com/*"
 			],
 			"js": [
 				"news_site.js"

@@ -98,4 +98,3 @@ function loginUser() {
 }
 
 loginUser();
-
