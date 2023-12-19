@@ -8,11 +8,14 @@ function sendData(srcURL, articleContent_value, imageURL_value){
     imageURL: imageURL_value,
 	platformName: "Twitter"
   }
+  chrome.runtime.sendMessage({action: 'getToken'}, output=> {
+	  const accessToken = output.result;
 	fetch('http://127.0.0.1:8000/insertSocial/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'Host': 'http://127.0.0.1:8000/insertSocial/'
+			'Host': 'http://127.0.0.1:8000/insertSocial/',
+			'Authorization': `Bearer ${accessToken}`
  		},
 		body: JSON.stringify(data)
 	})
@@ -22,7 +25,7 @@ function sendData(srcURL, articleContent_value, imageURL_value){
 	})
 	.catch((error) => {
 		console.error('Error: ', error);
-	});
+	});});
 
 }
 

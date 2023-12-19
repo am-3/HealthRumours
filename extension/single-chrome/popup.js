@@ -55,41 +55,51 @@ submitButton.addEventListener("click", function() {
 		proofURL: proofURL_box.value,
 		userFeedback: reasons.value
 	};
-	const url = 'http://127.0.0.1:8000/insertUser/'
-	fetch(url, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'Host': url
- 		},
-		body: JSON.stringify(data)
-	})
-	.then(response => response.json())
-	.then(data => {
-		console.log('Success:', data);
-	})
-	.catch((error) => {
-		console.error('Error: ', error);
+	const url = 'http://127.0.0.1:8000/insertUser/';
+	chrome.storage.local.get(['accessToken'], result => {
+		const accessToken = result.accessToken;
+		console.log(result.accessToken);
+		fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Host': url,
+				'Authorization': `Bearer ${accessToken}`,
+ 			},
+			body: JSON.stringify(data)
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log('Success:', data);
+		})
+		.catch((error) => {
+			console.error('Error: ', error);
+		});
 	});
 	const justContent = {
 		selectedContent: text.innerHTML
 	}
 	special_url = new URL ('http://127.0.0.1:8000/check/')
 	Object.keys(justContent).forEach(key => special_url.searchParams.append(key, justContent[key]));
-	fetch(special_url.toString(), {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-			'Host': 'http://127.0.0.1:8000/check/'
-		}
-	})
-	.then(response => response.json())
-	.then(data => {
-		console.log('Result:', data);
-		let resDisplay = document.getElementById('resultDisplay');
-		resDisplay.textContent = data.result;
-	})
-	.catch((error) => {
-		console.error('Error: ', error);
+	chrome.storage.local.get(['accessToken'], result => {
+		const accessToken = result.accessToken;
+		console.log(accessToken);
+		fetch(special_url.toString(), {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Host': 'http://127.0.0.1:8000/check/',
+				'Authorization': `Bearer ${accessToken}`,
+			},
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log('Result:', data);
+			let resDisplay = document.getElementById('resultDisplay');
+			resDisplay.textContent = data.result;
+		})
+		.catch((error) => {
+			console.error('Error: ', error);
+		});
 	});
 });
