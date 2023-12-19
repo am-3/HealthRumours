@@ -7,6 +7,7 @@ extension/*.crx
 extension/single-chrome.pem
 backend/__pycache__
 backend/Backend/Backend/__pycache__
+backend2\backendAPI\__pycache__
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -73,3 +74,4 @@ ipython_config.py
 .spyproject
 .idea/
 TODO.md
+*.pyc
