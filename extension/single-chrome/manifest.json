@@ -35,18 +35,6 @@
 		},
 		{
 			"matches": [
-				"https://www.thehindu.com/.+/",
-				"https://timesofindia.indiatimes.com/.+/",
-				"https://indianexpress.com/.+/",
-				"https://www.hindustantimes.com/.+/"
-			],
-			"js": [
-				"news_article.js"
-			],
-			"run_at": "document_idle"
-		},
-		{
-			"matches": [
 				"https://*/*"
 			],
 			"exclude_matches": [
