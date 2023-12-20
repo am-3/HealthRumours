@@ -1,21 +1,28 @@
 {
-    "manifest_version":3,
-    "name": "Testing",
-    "version": "0.5",
-    "author": "@IIITT",
-    "permissions":[
+    "manifest_version":2,
+    "name":"firefox",
+    "version":"1.0",
+    "permissions": [
         "activeTab",
         "scripting",
+        "storage",
         "tabs",
-        "http://*/",
-        "https://*/"
+        "contextMenus"
     ],
-    "background":{
-        "service_worker": "payload.js"
-
+    "browser_action":{
+       "default_icon":"fake.png"
     },
-    "action":{
-        "default_icon": "logo.png",
-		"default_popup": "popup.html"
+    "content_scripts": [
+        {
+          "matches": ["https://web.telegram.org/*"],
+          "js": ["telegram.js"]
+        },
+        {
+          "matches": ["https://web.whatsapp.com/*" ],
+          "js": ["whatsapp.js"]
+        }
+    ],
+    "background": {
+        "scripts": ["background.js"]
     }
 }
