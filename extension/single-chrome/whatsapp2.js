@@ -34,6 +34,39 @@ function sendMessageToBackend(text, imageSrc, socialMediaName) {
       });
   });
 }
+
+function scrapeNewsArticle(htmlContent)
+{
+    const allSectionsAndDivs = document.querySelectorAll("section, div");
+  const header = document.querySelector("header");
+  const footer = document.querySelector("footer");
+
+  const elementsOutsideHeaderFooter = [];
+
+  allSectionsAndDivs.forEach((element) => {
+    if ((!header || !header.contains(element)) && (!footer || !footer.contains(element))) {
+      elementsOutsideHeaderFooter.push(element);
+    }
+  });
+
+  const divs = elementsOutsideHeaderFooter;
+
+  let maxHeight = 0;
+  let req_div;
+
+  divs.forEach((div) => {
+    const computedHeight = window.getComputedStyle(div).getPropertyValue("height");
+    const height = parseFloat(computedHeight);
+    if (height > maxHeight) {
+      maxHeight = height;
+      req_div = div;
+    }
+  });
+  console.log('height of req div is: ',maxHeight);
+	console.log("Req_div:");
+	console.log(req_div);
+    return articleContent;
+}
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "executeCustomAction") {
     const selection = window.getSelection();

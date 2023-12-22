@@ -72,7 +72,7 @@
 			"matches": [
 			  "https://web.whatsapp.com/*" 
 			],
-			"js": ["whatsapp.js"]
+			"js": ["whatsapp2.js"]
         }
 	],
 	"background": {
