@@ -1,4 +1,3 @@
-
 let yourContextMenuExists = false;
 chrome.runtime.onInstalled.addListener(() => {
   function createContextMenuItem() {
@@ -12,6 +11,7 @@ chrome.runtime.onInstalled.addListener(() => {
     if (message && message.action === "createContextMenu") {
       createContextMenuItem();
       console.log('contextmenu created');
+      yourContextMenuExists=true;
     }
   }); 
 });

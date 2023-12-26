@@ -15,11 +15,11 @@ function sendMessageToBackend(text, imageSrc, socialMediaName) {
   };
   browser.runtime.sendMessage({ action: "getToken" }, (output) => {
     const accessToken = output.result;
-    fetch("http://localhost:8000/insertDataWhatsapp/", {
+    fetch('http://127.0.0.1:8000/insertDataWhatsapp/', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'host':"http://localhost:8000/insertDataWhatsapp/",
+        'host':'http://127.0.0.1:8000/insertDataWhatsapp/',
         'Authorization':`Bearer ${accessToken}`
       },
       body: JSON.stringify(data),
@@ -91,7 +91,7 @@ browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             reader.onload = function () {
               const dataURL = reader.result;
               sendMessageToBackend(image_text, dataURL, "whatsapp");
-              // console.log("Converted Data URL:", dataURL);
+              console.log("Converted Data URL:", dataURL);
             };
             reader.readAsDataURL(recoveredBlob);
           };
@@ -100,7 +100,7 @@ browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         }
         else
         {
-          // console.log("Selected text is :", selectedText);
+          console.log("Selected text is :", selectedText);
           sendMessageToBackend(selectedText, undefined, "whatsapp");
         }        
       }

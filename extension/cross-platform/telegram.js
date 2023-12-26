@@ -40,10 +40,10 @@ browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       if (clickEvent && clickEvent.target.tagName === "IMG") {
         console.log("enter into image");
         let selectedcontent = clickEvent.target.parentElement.nextSibling;
-        let iamge_text;
+        let image_text;
         if(selectedcontent != null)
         {
-          iamge_text = selectedcontent.nextSibling.childNodes[0].textContent;
+          image_text = selectedcontent.nextSibling.childNodes[0].textContent;
           // console.log("The content of image is : ",selectedcontent);
         }
         const blobURL = clickEvent.target.src;
@@ -55,8 +55,8 @@ browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           const reader = new FileReader();
           reader.onload = function () {
             const dataURL = reader.result;
-            sendMessageToBackend(iamge_text, dataURL,'telegram');
-            // console.log("Converted Data URL:", dataURL);
+            sendMessageToBackend(image_text, dataURL,'telegram');
+            console.log("Converted Data URL:", dataURL);
           };
           reader.readAsDataURL(recoveredBlob);
         };
@@ -66,8 +66,9 @@ browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         const selection = window.getSelection();
         if (selection) {
           const selectedText = selection.toString();
-          // console.log("selected text is ", selectedText);
+          console.log("selected text is ", selectedText);
           sendMessageToBackend(selectedText,undefined,'telegram');
+          
         }
       }
       rightClickOccurred = false;
