@@ -90,8 +90,15 @@ browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             const reader = new FileReader();
             reader.onload = function () {
               const dataURL = reader.result;
-              sendMessageToBackend(image_text, dataURL, "whatsapp");
-              console.log("Converted Data URL:", dataURL);
+              const dataToSend = {
+                text:image_text,
+                imageSrc:dataURL,
+                socialMediaName:"whatsapp"
+              };
+              console.log('sending message of image',dataToSend);
+              browser.runtime.sendMessage(dataToSend);
+              // sendMessageToBackend(image_text, dataURL, "whatsapp");
+              // console.log("Converted Data URL:", dataURL);
             };
             reader.readAsDataURL(recoveredBlob);
           };
@@ -100,8 +107,15 @@ browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         }
         else
         {
-          console.log("Selected text is :", selectedText);
-          sendMessageToBackend(selectedText, undefined, "whatsapp");
+          // console.log("Selected text is :", selectedText);
+          // sendMessageToBackend(selectedText, undefined, "whatsapp");
+          const dataToSend = {
+            text:selectedText,
+            imageSrc:undefined,
+            socialMediaName:"whatsapp"
+          };
+          console.log('sending message of text',dataToSend);
+          browser.runtime.sendMessage(dataToSend);
         }        
       }
     } else {

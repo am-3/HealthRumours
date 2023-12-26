@@ -55,8 +55,15 @@ browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           const reader = new FileReader();
           reader.onload = function () {
             const dataURL = reader.result;
-            sendMessageToBackend(image_text, dataURL,'telegram');
-            console.log("Converted Data URL:", dataURL);
+            const dataToSend = {
+              text:image_text,
+              imageSrc:dataURL,
+              socialMediaName:"telegram"
+            };
+            console.log('sending message of text',dataToSend);
+            browser.runtime.sendMessage(dataToSend);
+            // sendMessageToBackend(image_text, dataURL,'telegram');
+            // console.log("Converted Data URL:", dataURL);
           };
           reader.readAsDataURL(recoveredBlob);
         };
@@ -66,9 +73,15 @@ browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         const selection = window.getSelection();
         if (selection) {
           const selectedText = selection.toString();
-          console.log("selected text is ", selectedText);
-          sendMessageToBackend(selectedText,undefined,'telegram');
-          
+          // console.log("selected text is ", selectedText);
+          // sendMessageToBackend(selectedText,undefined,'telegram');
+          const dataToSend = {
+            text:selectedText,
+            imageSrc:undefined,
+            socialMediaName:"telegram"
+          };
+          console.log('sending message of text',dataToSend);
+          browser.runtime.sendMessage(dataToSend);
         }
       }
       rightClickOccurred = false;

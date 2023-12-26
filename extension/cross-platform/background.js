@@ -41,6 +41,48 @@ browser.tabs.onActivated.addListener(function (activeInfo) {
   });
 });
 
+function sendMessageToBackend(text, imageSrc, socialMediaName) {
+  const data = {
+    textContent: text,
+    imageSrc: imageSrc,
+    socialMedia: socialMediaName,
+  };
+  browser.storage.local.get('accessToken', output=> {
+    const accessToken = output.accessToken;
+    fetch('http://127.0.0.1:8000/insertDataWhatsapp/', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'host':'http://127.0.0.1:8000/insertDataWhatsapp/',
+        'Authorization':`Bearer ${accessToken}`
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Received response from backend.\nThe result is",data.result);
+      })
+      .catch((error) => {
+        console.error("Error sending message to backend: ", error);
+      });
+  });
+}
+
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message && message.socialMediaName) {
+    const receivedText = message.text;
+    const receivedImageSrc = message.imageSrc;
+    const receivedSocialMediaName = message.socialMediaName;
+
+    console.log("Received Text:", receivedText);
+    console.log("Received Image Source:", receivedImageSrc);
+    console.log("Received Social Media Name:", receivedSocialMediaName);
+    sendMessageToBackend(receivedText,receivedImageSrc,receivedSocialMediaName);
+  } else {
+    console.log("Invalid message received from content script");
+  }
+});
+
 
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if(request.action === 'getToken'){
