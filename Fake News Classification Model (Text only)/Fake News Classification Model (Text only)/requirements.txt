@@ -1,0 +1,5 @@
+transformers
+tensorflow
+numpy
+spacy
+nltk
