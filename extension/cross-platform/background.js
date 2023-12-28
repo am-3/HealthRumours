@@ -1,3 +1,4 @@
+
 let yourContextMenuExists = false;
 console.log('inside background');
 browser.runtime.onInstalled.addListener(() => {
@@ -144,3 +145,4 @@ function loginUser() {
 }
 
 loginUser();
+
