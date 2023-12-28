@@ -4,20 +4,25 @@ function sendMessageToBackend(text, imageSrc, socialMediaName) {
     imageSrc: imageSrc,
     socialMedia: socialMediaName
   };
-  fetch('http://localhost:8000/insert-data/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Received response from backend.\nThe result is', data.result);
+  chrome.runtime.sendMessage({ action: "getToken" }, (output) => {
+    const accessToken = output.result;
+    fetch("http://localhost:8000/insertDataTelegram/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'host':"http://localhost:8000/insertDataTelegram/",
+        'Authorization':`Bearer ${accessToken}`
+      },
+      body: JSON.stringify(data),
     })
-    .catch(error => {
-      console.error('Error sending message to backend:', error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Received response from backend.\nThe result is",data.result);
+      })
+      .catch((error) => {
+        console.error("Error sending message to backend: ", error);
+      });
+  });
 }
 
 let rightClickOccurred = false;
