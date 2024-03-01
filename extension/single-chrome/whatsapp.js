@@ -1,41 +1,45 @@
 let rightClickOccurred = false;
+console.log('whatsapp injected');
 let clickEvent;
 chrome.runtime.sendMessage({ action: "createContextMenu" });
 document.addEventListener("contextmenu", (event) => {
   rightClickOccurred = true;
+  console.log('yes');
   clickEvent = event;
 });
+
 function sendMessageToBackend(text, imageSrc, socialMediaName) {
   const data = {
     textContent: text,
     imageSrc: imageSrc,
     socialMedia: socialMediaName,
   };
-
-  fetch("http://localhost:8000/insert-data/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(
-        "Received response from backend.\nThe result is",
-        data.result
-      );
+  chrome.runtime.sendMessage({ action: "getToken" }, (output) => {
+    const accessToken = output.result;
+    fetch("http://localhost:8000/insertDataWhatsapp/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'host':"http://localhost:8000/insertDataWhatsapp/",
+        'Authorization':`Bearer ${accessToken}`
+      },
+      body: JSON.stringify(data),
     })
-    .catch((error) => {
-      console.error("Error sending message to backend:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Received response from backend.\nThe result is",data.result);
+      })
+      .catch((error) => {
+        console.error("Error sending message to backend: ", error);
+      });
+  });
 }
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "executeCustomAction") {
     const selection = window.getSelection();
     if (selection) {
       const selectedText = selection.toString();
-      const isUrl = /^https?:\/\//.test("s");
+      const isUrl = /^https?:\/\//.test(selectedText);
 
       if (isUrl) {
         const proxyUrl = `http://localhost:3000/proxy?url=${encodeURIComponent(
@@ -44,27 +48,30 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         fetch(proxyUrl)
           .then((response) => response.text())
           .then((htmlContent) => {
-            const tempDiv = document.createElement("div");
-            tempDiv.innerHTML = htmlContent;
 
-            // Select all div elements
-            const divs = tempDiv.querySelectorAll("div");
+            const articleContent=scrapeNewsArticle(htmlContent);
+            console.log(articleContent);
+            // const tempDiv = document.createElement("div");
+            // tempDiv.innerHTML = htmlContent;
 
-            let maxContentLength = 0;
-            let selectedDivContent = "";
+            // // Select all div elements
+            // const divs = tempDiv.querySelectorAll("div");
 
-            // Loop through each div to find the one with the most text content
-            divs.forEach((div) => {
-              const textContent = div.innerText || div.textContent;
-              const contentLength = textContent.length;
+            // let maxContentLength = 0;
+            // let selectedDivContent = "";
 
-              if (contentLength > maxContentLength) {
-                maxContentLength = contentLength;
-                selectedDivContent = textContent;
-              }
-            });
+            // // Loop through each div to find the one with the most text content
+            // divs.forEach((div) => {
+            //   const textContent = div.innerText || div.textContent;
+            //   const contentLength = textContent.length;
 
-            console.log(selectedDivContent);
+            //   if (contentLength > maxContentLength) {
+            //     maxContentLength = contentLength;
+            //     selectedDivContent = textContent;
+            //   }
+            // });
+
+            // console.log(selectedDivContent);
           })
           .catch((error) => {
             console.error("Error fetching content:", error);
@@ -81,11 +88,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             const reader = new FileReader();
             reader.onload = function () {
               const dataURL = reader.result;
-              sendMessageToBackend(
-                selectedText,
-                dataURL,
-                "whatsapp"
-              );
+              sendMessageToBackend(selectedText, dataURL, "whatsapp");
             };
             reader.readAsDataURL(recoveredBlob);
           };
