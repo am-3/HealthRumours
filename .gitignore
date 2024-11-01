@@ -1,7 +1,0 @@
-extension/__pycache__
-extension/single-chrome/node_modules/
-extension/single-chrome/*~
-extension/single-chrome/*.zip
-extension/single-chrome/package*
-extension/*.crx
-extension/single-chrome.pem
