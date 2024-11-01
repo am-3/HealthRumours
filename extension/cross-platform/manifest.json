@@ -21,11 +21,56 @@
 	"content_scripts": [
 		{
 			"matches": ["https://web.telegram.org/*"],
+			"css": ["injection.css"],
 			"js": ["telegram.js"]
 		},
 		{
-			"matches": ["https://web.whatsapp.com/"],
+			"matches": ["https://web.whatsapp.com/*"],
+			"css": ["injection.css"],
 			"js": ["whatsapp.js"]
+		},
+		{
+			"matches": [
+				"https://twitter.com/*"
+			],
+			"js": [
+				"twitter.js"
+			],
+			"css": ["injection.css"]
+		},
+		{
+			"matches": [
+				"https://www.facebook.com/*"
+			],
+			"js": [
+				"facebook.js"
+			],
+			"css": ["injection.css"]
+		},
+		{
+			"matches":[
+				"https://www.theonion.com/"
+			],
+			"css": ["injection.css"],
+			"js":[
+				"onion.js"
+			]
+		},
+		{
+			"matches": [
+				"https://*/*"
+			],
+			"exclude_matches": [
+				"https://twitter.com/*",
+				"https://www.facebook.com/*",
+				"https://web.telegram.org/*",
+				"https://web.whatsapp.com/*"
+			],
+			"js": [
+				"news_site.js"
+			],
+			"css": ["injection.css"],
+			"run_at": "document_idle"
 		}
 	],
 	"background": {

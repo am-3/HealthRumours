@@ -1,11 +1,11 @@
 {
-	"name": "Web Scraper",
-	"description": "Scrape content from any web page",
+	"name": "Fake News Detector",
+	"description": "",
 	"version": "0.5",
 	"manifest_version": 3,
 	"action": {
 		"default_popup": "popup.html",
-		"default_icon": "logo.png"
+		"default_icon": "fake2.png"
 	},
 	"permissions": [
 		"tabs",
@@ -22,6 +22,7 @@
 			"js": [
 				"twitter.js"
 			],
+			"css": ["injection.css"],
 			"run_at": "document_idle"
 		},
 		{
@@ -31,39 +32,23 @@
 			"js": [
 				"facebook.js"
 			],
+			"css": ["injection.css"],
 			"run_at": "document_idle"
 		},
 		{
-			"matches": [
-				"https://www.thehindu.com/.+/",
-				"https://timesofindia.indiatimes.com/.+/",
-				"https://indianexpress.com/.+/",
-				"https://www.hindustantimes.com/.+/"
+			"matches":[
+				"https://www.theonion.com/*"
 			],
-			"js": [
-				"news_article.js"
-			],
-			"run_at": "document_idle"
-		},
-		{
-			"matches": [
-				"https://*/*"
-			],
-			"exclude_matches": [
-				"https://twitter.com/*",
-				"https://www.facebook.com/*",
-				"https://web.telegram.org/*",
-				"https://web.whatsapp.com/*"
-			],
-			"js": [
-				"news_site.js"
-			],
-			"run_at": "document_idle"
+			"css": ["injection.css"],
+			"js":[
+				"onion.js"
+			]
 		},
 		{
 			"matches": [
 				"https://web.telegram.org/*"
 			],
+			"css": ["injection.css"],
 			"js": [
 				"telegram.js"
 			]
@@ -72,8 +57,34 @@
 			"matches": [
 			  "https://web.whatsapp.com/*" 
 			],
+			"css": ["injection.css"],
 			"js": ["whatsapp.js"]
-        }
+        },
+		{
+			"matches": [
+				"https://www.hindustantimes.com/*/*",
+				"https://www.thehindu.com/*/*",
+				"https://timesofindia.indiatimes.com/*/*",
+				"https://www.deccanchronicle.com/*/*",
+				"https://www.foxnews.com/*/*",
+				"https://www.washingtonexaminer.com/*/*",
+				"https://www.tmz.com/*/*",
+				"https://www.latimes.com/*/*",
+				"https://www.theguardian.com/*/*",
+				"https://www.scotsman.com/*/*",
+				"https://indianexpress.com/*/*",
+				"https://www.indiatoday.in/*/*",
+				"https://economictimes.indiatimes.com/*/*",
+				"https://www.ndtv.com/*/*",
+				"https://www.news18.com/*/*"
+
+			],
+			"js": [
+				"news_site.js"
+			],
+			"css": ["injection.css"],
+			"run_at": "document_idle"
+		}
 	],
 	"background": {
 		"service_worker": "background.js"

@@ -2,18 +2,18 @@ from django.db import models
 
 # Create your models here.
 
-class newsArticles(models.Model):
-    sourceURL = models.CharField(max_length=100)
-    articleTitle = models.CharField(max_length=100)
-    articleContent = models.CharField(max_length=10000)
-    imageURL = models.CharField(max_length=100, null=True)
+class NewsArticles(models.Model):
+    source_url = models.CharField(max_length=100)
+    article_title = models.CharField(max_length=100)
+    article_content = models.TextField()
+    image_url = models.CharField(max_length=100, null=True)
     status = models.CharField(max_length=20, default="Unverified")
 
-class socialMediaPosts(models.Model):
-    sourceURL = models.CharField(max_length=100)
-    articleContent = models.CharField(max_length=10000)
-    imageURL = models.CharField(max_length=100, null=True)
-    platformName = models.CharField(max_length=20)
+class SocialMediaPosts(models.Model):
+    source_url = models.CharField(max_length=100)
+    article_content = models.TextField(null=True)
+    image_url = models.CharField(max_length=100, null=True)
+    platform_name = models.CharField(max_length=20)
     status = models.CharField(max_length=20, default="Unverified")
 
 class WhatsappAndTelegram(models.Model):
@@ -22,11 +22,18 @@ class WhatsappAndTelegram(models.Model):
     social_media = models.CharField(max_length=30)
     result = models.CharField(max_length=20,default='unverified')
     
-class userSelected(models.Model):
-    selectedContent = models.CharField(max_length=100)
+class UserSelected(models.Model):
+    selected_content = models.CharField(max_length=100)
     confidence = models.IntegerField()
-    imageURL = models.CharField(max_length=100, null=True)
-    sourceURL = models.CharField(max_length=100)
-    proofURL = models.CharField(max_length=100)
-    userFeedback = models.CharField(max_length=100)
+    image_url = models.CharField(max_length=100, null=True)
+    source_url = models.CharField(max_length=100)
+    proof_url = models.CharField(max_length=100)
+    user_feedback = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, default="Unverified")
+
+class FacebookPosts(models.Model):
+    source_url = models.CharField(max_length=100)
+    article_content = models.TextField(null=True)
+    image_url = models.CharField(max_length=100, null=True)
+    platform_name = models.CharField(max_length=20)
     status = models.CharField(max_length=20, default="Unverified")

@@ -42,6 +42,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if(request.action === 'getToken'){
     chrome.storage.local.get('accessToken', data=> {
+      console.log("data.accessToken: ",data.accessToken)
       sendResponse({result: data.accessToken});
     });
     return true;

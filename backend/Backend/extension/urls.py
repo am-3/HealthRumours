@@ -23,6 +23,7 @@ urlpatterns = [
 	path('insertUser/', views.insertUser, name='insertUser'),
     path('insertNews/', views.insertNews, name='insertNews'),
     path('insertSocial/', views.insertSocial, name='insertSocial'),
+    path('insertFacebook/', views.insertFacebook, name='insertFacebook'),
     path('insertDataWhatsapp/', views.insertWhatsappAndTelegram, name='insertWhatsappAndTelegram'),
     path('insertDataTelegram/', views.insertWhatsappAndTelegram, name='insertWhatsappAndTelegram'),
     path('check/', views.getData, name='getData'),

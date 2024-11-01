@@ -22,6 +22,21 @@ function sendData(srcURL, articleContent_value, imageURL_value){
 	.then(response => response.json())
 	.then(data => {
 		console.log('Success:', data);
+		var notification = document.createElement('div');
+        notification.className = 'custom-notification';
+        var result = data.result==='0' ? "Fake News" : "Real News"
+        notification.innerText = result;
+        var closeButton = document.createElement('button');
+        closeButton.innerText = '✖'; 
+        closeButton.className = 'close-button';
+        closeButton.style.position = 'absolute';
+        closeButton.style.top = '5px'; 
+        closeButton.style.right = '5px'; 
+        closeButton.addEventListener('click', function() {
+            document.body.removeChild(notification);
+        });
+        notification.appendChild(closeButton);
+        document.body.appendChild(notification);
 	})
 	.catch((error) => {
 		console.error('Error: ', error);

@@ -12,6 +12,7 @@ browser.runtime.onInstalled.addListener(() => {
   browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message && message.action === "createContextMenu") {
       createContextMenuItem();
+      console.log('contextmenu created');
       yourContextMenuExists = true;
     }
   }); 
@@ -41,11 +42,12 @@ browser.tabs.onActivated.addListener(function (activeInfo) {
   });
 });
 
-function sendMessageToBackend(text, imageSrc, socialMediaName) {
+function sendMessageToBackend(text, imageSrc, socialMediaName,isUrl) {
   const data = {
-    textContent: text,
-    imageSrc: imageSrc,
-    socialMedia: socialMediaName,
+    text_content: text,
+    image_src: imageSrc,
+    social_media: socialMediaName,
+    is_url:isUrl
   };
   browser.storage.local.get('accessToken', output=> {
     const accessToken = output.accessToken;
@@ -60,24 +62,29 @@ function sendMessageToBackend(text, imageSrc, socialMediaName) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("Data is",data);
         console.log("Received response from backend.\nThe result is",data.result);
+        sendMessageToContentScript(data.result);
       })
       .catch((error) => {
         console.error("Error sending message to backend: ", error);
+        // showResult(data)
       });
   });
 }
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message && message.socialMediaName) {
-    const receivedText = message.text;
-    const receivedImageSrc = message.imageSrc;
-    const receivedSocialMediaName = message.socialMediaName;
+  if (message && message.social_media) {
+    const receivedText = message.text_content;
+    const receivedImageSrc = message.image_src;
+    const receivedSocialMediaName = message.social_media;
+    const receivedUrl = message.is_url;
 
     console.log("Received Text:", receivedText);
     console.log("Received Image Source:", receivedImageSrc);
     console.log("Received Social Media Name:", receivedSocialMediaName);
-    sendMessageToBackend(receivedText,receivedImageSrc,receivedSocialMediaName);
+    console.log("Received Url:", receivedUrl);
+    sendMessageToBackend(receivedText,receivedImageSrc,receivedSocialMediaName,receivedUrl);
   } else {
     console.log("Invalid message received from content script");
   }
@@ -102,6 +109,15 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
      }
   }
 })
+
+////////
+function sendMessageToContentScript(result) {
+  browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    browser.tabs.sendMessage(tabs[0].id, { action: "showResult", result: result });
+  });
+}
+////////
+
 
 function logger (){
         console.clear();
