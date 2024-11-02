@@ -23,17 +23,21 @@ function scrapeContentFromPage() {
                 // console.log(x.innerText);
             }
 
-
-
             let img = posts[i].querySelector('div > img');
             if (img && img.getAttribute("role") === null) {
                 imgurl = img.src;
                 // console.log(img.src);
             }
 
-            if (srcurl!==null || content !== null || img != null) {
-                sendData(srcurl, content, imgurl);
-                // console.log("POST\n");
+            if (srcurl!==null && ( content !== null || img != null)) {
+                sendData(srcurl, content, imgurl)
+                .then(result => {
+                    console.log("Result is: " + result.result);
+                    posts[i].style.border="solid green";
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
             }
         }
     }
@@ -41,32 +45,36 @@ function scrapeContentFromPage() {
 }
 
 function sendData(srcURL, articleContent_value, imageURL_value) {
-    const data = {
-        sourceURL: srcURL,
-        articleContent: articleContent_value,
-        imageURL: imageURL_value,
-        platformName: "Twitter"
-    }
-    chrome.runtime.sendMessage({ action: 'getToken' }, output => {
-        const accessToken = output.result;
-        fetch('http://127.0.0.1:8000/insertSocial/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Host': 'http://127.0.0.1:8000/insertSocial/',
-                'Authorization': `Bearer ${accessToken}`
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error: ', error);
-            });
-    });
+    return new Promise((resolve, reject) => {
+        const data = {
+            sourceURL: srcURL,
+            articleContent: articleContent_value,
+            imageURL: imageURL_value,
+            platformName: "Facebook"
+        }
 
+        chrome.runtime.sendMessage({ action: 'getToken' }, output => {
+            const accessToken = output.result;
+            fetch('http://127.0.0.1:8000/insertFacebook/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Host': 'http://127.0.0.1:8000/insertFacebook/',
+                    'Authorization': `Bearer ${accessToken}`
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    resolve(data); // Resolve the promise with the data
+                })
+                .catch((error) => {
+                    console.error('Error: ', error);
+                    reject(error); // Reject the promise with the error
+                });
+        });
+    });
 }
 setTimeout(scrapeContentFromPage, 5000);
 window.addEventListener('scroll', scrapeContentFromPage);
