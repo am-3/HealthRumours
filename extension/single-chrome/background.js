@@ -1,4 +1,3 @@
-/*
 let yourContextMenuExists = false;
 chrome.runtime.onInstalled.addListener(() => {
   function createContextMenuItem() {
@@ -11,6 +10,8 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message && message.action === "createContextMenu") {
       createContextMenuItem();
+      console.log('contextmenu created');
+      yourContextMenuExists=true;
     }
   }); 
 });
@@ -36,11 +37,12 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
     }
   });
 });
-*/
+
 // For full-site text
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if(request.action === 'getToken'){
     chrome.storage.local.get('accessToken', data=> {
+      console.log("data.accessToken: ",data.accessToken)
       sendResponse({result: data.accessToken});
     });
     return true;
@@ -83,7 +85,7 @@ function loginUser() {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({username: "rooot", password: "rooot"}),
+    body: JSON.stringify({username: "rooot", password: "temporaryuser"}),
   })
   .then (response => response.json())
   .then (data => {

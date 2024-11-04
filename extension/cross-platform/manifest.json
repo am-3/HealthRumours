@@ -1,28 +1,80 @@
 {
-    "manifest_version":2,
-    "name":"firefox",
-    "version":"1.0",
-    "permissions": [
-        "activeTab",
-        "scripting",
-        "storage",
-        "tabs",
-        "contextMenus"
-    ],
-    "browser_action":{
-       "default_icon":"fake.png"
-    },
-    "content_scripts": [
-        {
-          "matches": ["https://web.telegram.org/*"],
-          "js": ["telegram.js"]
-        },
-        {
-          "matches": ["https://web.whatsapp.com/*" ],
-          "js": ["whatsapp.js"]
-        }
-    ],
-    "background": {
-        "scripts": ["background.js"]
-    }
+	"name": "Web Scraper",
+	"description": "Scrape content from any web page",
+	"version": "0.5",
+	"manifest_version": 2,
+	"icons": {
+		"48": "logo.png",
+		"96": "logo.png"
+	},
+	"permissions": [
+		"tabs",
+		"activeTab",
+		"scripting",
+		"storage",
+		"contextMenus",
+		"http://127.0.0.1:8000/*"
+	],
+	"browser_action": {
+		"default_icon": "logo.png"
+	},
+	"content_scripts": [
+		{
+			"matches": ["https://web.telegram.org/*"],
+			"css": ["injection.css"],
+			"js": ["telegram.js"]
+		},
+		{
+			"matches": ["https://web.whatsapp.com/*"],
+			"css": ["injection.css"],
+			"js": ["whatsapp.js"]
+		},
+		{
+			"matches": [
+				"https://twitter.com/*"
+			],
+			"js": [
+				"twitter.js"
+			],
+			"css": ["injection.css"]
+		},
+		{
+			"matches": [
+				"https://www.facebook.com/*"
+			],
+			"js": [
+				"facebook.js"
+			],
+			"css": ["injection.css"]
+		},
+		{
+			"matches":[
+				"https://www.theonion.com/"
+			],
+			"css": ["injection.css"],
+			"js":[
+				"onion.js"
+			]
+		},
+		{
+			"matches": [
+				"https://*/*"
+			],
+			"exclude_matches": [
+				"https://twitter.com/*",
+				"https://www.facebook.com/*",
+				"https://web.telegram.org/*",
+				"https://web.whatsapp.com/*"
+			],
+			"js": [
+				"news_site.js"
+			],
+			"css": ["injection.css"],
+			"run_at": "document_idle"
+		}
+	],
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"content_security_policy": "default-src 'self' ; connect-src http://127.0.0.1:8000"
 }
