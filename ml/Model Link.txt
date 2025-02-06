@@ -1,0 +1,4 @@
+I was unable to push the classification model because it is 1.16GB in size. Hence, I am providing the drive link to the folder which contains the model, the requirement.txt file and a python notebook which provides steps to use the model for getting predictions.
+
+
+Drive Link: https://drive.google.com/drive/folders/1mKXBicEVGiY5-RosrpRGw_vhMZHqA__W?usp=sharing

@@ -8,21 +8,39 @@ function sendData(srcURL, articleContent_value, imageURL_value){
     imageURL: imageURL_value,
 	platformName: "Twitter"
   }
+  chrome.runtime.sendMessage({action: 'getToken'}, output=> {
+	  const accessToken = output.result;
 	fetch('http://127.0.0.1:8000/insertSocial/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'Host': 'http://127.0.0.1:8000/insertSocial/'
+			'Host': 'http://127.0.0.1:8000/insertSocial/',
+			'Authorization': `Bearer ${accessToken}`
  		},
 		body: JSON.stringify(data)
 	})
 	.then(response => response.json())
 	.then(data => {
 		console.log('Success:', data);
+		var notification = document.createElement('div');
+        notification.className = 'custom-notification';
+        var result = data.result==='0' ? "Fake News" : "Real News"
+        notification.innerText = result;
+        var closeButton = document.createElement('button');
+        closeButton.innerText = '✖'; 
+        closeButton.className = 'close-button';
+        closeButton.style.position = 'absolute';
+        closeButton.style.top = '5px'; 
+        closeButton.style.right = '5px'; 
+        closeButton.addEventListener('click', function() {
+            document.body.removeChild(notification);
+        });
+        notification.appendChild(closeButton);
+        document.body.appendChild(notification);
 	})
 	.catch((error) => {
 		console.error('Error: ', error);
-	});
+	});});
 
 }
 
