@@ -1,16 +1,17 @@
-extension/__pycache__
 extension/single-chrome/node_modules/
 extension/single-chrome/*~
 extension/single-chrome/*.zip
 extension/single-chrome/package*
 extension/*.crx
 extension/single-chrome.pem
-backend/__pycache__
-backend/Backend/Backend/__pycache__
-backend2\backendAPI\__pycache__
+*~
+.venv
+.env
+
+~sample.env
 
 # Byte-compiled / optimized / DLL files
-__pycache__/
+*/__pycache__/
 *.py[cod]
 *$py.class
 
