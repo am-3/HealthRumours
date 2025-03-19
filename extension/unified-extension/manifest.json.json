@@ -1,0 +1,60 @@
+{
+    "manifest_version": 3,
+    "name": "Unified Health Rumours Detector",
+    "version": "1.0",
+    "description": "Detects and handles health misinformation across multiple platforms",
+    "icons": {
+        "48": "logo.png",
+        "128": "logo.png"
+    },
+    "permissions": [
+        "contextMenus",
+        "activeTab",
+        "scripting",
+        "storage"
+    ],
+    "host_permissions": [
+        "*://*.facebook.com/*",
+        "*://*.twitter.com/*",
+        "*://*.theonion.com/*",
+        "*://*.telegram.org/*",
+        "*://*.whatsapp.com/*",
+        "*://localhost:8000/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": "logo.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.facebook.com/*",
+                "*://*.twitter.com/*",
+                "*://*.theonion.com/*",
+                "*://*.telegram.org/*",
+                "*://*.whatsapp.com/*"
+            ],
+            "js": [
+                "browser-polyfill.js",
+                "facebook.js",
+                "twitter.js",
+                "onion.js",
+                "telegram.js",
+                "whatsapp.js",
+                "news_site.js"
+            ],
+            "css": [
+                "injection.css"
+            ]
+        }
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "healthrumours@addon",
+            "strict_min_version": "102.0"
+        }
+    }
+}
