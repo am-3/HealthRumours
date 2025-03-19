@@ -7,7 +7,6 @@ extension/single-chrome.pem
 *~
 .venv
 .env
-
 ~sample.env
 
 # Byte-compiled / optimized / DLL files
@@ -76,3 +75,4 @@ ipython_config.py
 .idea/
 TODO.md
 *.pyc
+#TODO.md

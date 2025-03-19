@@ -55,7 +55,7 @@ params = {
 
 nlp = spacy.load("en_core_web_sm")
 reader = easyocr.Reader(["en"])
-# Create your views here.
+
 
 
 @api_view(['POST'])
