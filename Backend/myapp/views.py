@@ -36,7 +36,7 @@ from transformers import BertTokenizer, TFBertModel
 bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 bert_encoder = TFBertModel.from_pretrained('bert-base-uncased')
 text_classifier = load_model(
-    "C:/Users/SRI SAI SNIGDHA/Desktop/icssr-zip/icssr/backend/Backend/myapp/text_classifier.h5")
+    "./text_classifier.h5")
 summarizer = pipeline(
     "summarization", model="pszemraj/long-t5-tglobal-base-16384-book-summary")
 
