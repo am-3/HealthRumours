@@ -58,6 +58,8 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+*/migrations
+
 
 # Scrapy stuff:
 .scrapy
@@ -75,4 +77,3 @@ ipython_config.py
 .idea/
 TODO.md
 *.pyc
-TODO.md
