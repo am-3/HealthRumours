@@ -522,40 +522,40 @@ def insertSocial(request):
 #         return Response({'error': str(e)}, status=500)
 
 
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def generate_jwt_token(request):
-#     try:
-#         if (request.method == 'POST'):
-#             if (request.user):
-#                 token = AccessToken.for_user(request.user)
-#                 print("HERE")
-#                 jwt_token = str(token)
-#                 return Response({'access': jwt_token})
-#             else:
-#                 return Response({'error': 'User auth failed'})
-#     except Exception as e:
-#         return Response({'error': str(e)}, status=500)
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def generate_jwt_token(request):
+    try:
+        if (request.method == 'POST'):
+            if (request.user):
+                token = AccessToken.for_user(request.user)
+                print("HERE")
+                jwt_token = str(token)
+                return Response({'access': jwt_token})
+            else:
+                return Response({'error': 'User auth failed'})
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
 
 
-# class TokenObtainView(APIView):
-#     def post(self, request):
-#         username = request.data.get('username')
-#         password = request.data.get('password')
+class TokenObtainView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
 
-#         if not username or not password:
-#             return Response({'error': 'Please provide both username and password'}, status=status.HTTP_400_BAD_REQUEST)
+        if not username or not password:
+            return Response({'error': 'Please provide both username and password'}, status=status.HTTP_400_BAD_REQUEST)
 
-#         user = authenticate(username=username, password=password)
+        user = authenticate(username=username, password=password)
 
-#         if user is not None:
-#             refresh = RefreshToken.for_user(user)
-#             return Response({
-#                 'access': str(refresh.access_token),
-#                 'refresh_token': str(refresh)
-#             })
-#         else:
-#             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        if user is not None:
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'access': str(refresh.access_token),
+                'refresh_token': str(refresh)
+            })
+        else:
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 # model = joblib.load("D:/icssr/backend/Backend/myapp/isot_LR_model.joblib")
 # def predict(text):
