@@ -77,3 +77,4 @@ ipython_config.py
 .idea/
 TODO.md
 *.pyc
+Backend/myapp/migrations/0001_initial.py
