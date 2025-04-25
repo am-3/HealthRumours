@@ -26,7 +26,7 @@ urlpatterns = [
     # path('insertFacebook/', views.insertFacebook, name='insertFacebook'),
     # path('insertDataWhatsapp/', views.insertWhatsappAndTelegram, name='insertWhatsappAndTelegram'),
     # path('insertDataTelegram/', views.insertWhatsappAndTelegram, name='insertWhatsappAndTelegram'),
-    # path('check/', views.getData, name='getData'),
+    path('check/', views.getData, name='getData'),
     path('api/token/', views.TokenObtainView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

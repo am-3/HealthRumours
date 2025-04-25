@@ -509,17 +509,17 @@ def insertSocial(request):
 #     return sent
 
 
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def getData(request):
-#     try:
-#         if request.method == 'GET':
-#             selectedContent_value = request.GET.get('selectedContent', '')
-#             row = UserSelected.objects.get(
-#                 selectedContent=selectedContent_value)
-#             return Response({'result': row.status})
-#     except Exception as e:
-#         return Response({'error': str(e)}, status=500)
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getData(request):
+    try:
+        if request.method == 'GET':
+            selectedContent_value = request.GET.get('selectedContent', '')
+            row = UserSelected.objects.get(
+                selectedContent=selectedContent_value)
+            return Response({'result': row.status})
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
 
 
 @api_view(['POST'])
