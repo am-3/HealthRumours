@@ -33,6 +33,9 @@ import numpy as np
 import keras
 from keras import models
 from transformers import BertTokenizer, TFBertModel
+
+tensorflow.config.set_visible_devices([], 'GPU')
+
 bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 bert_encoder = TFBertModel.from_pretrained('bert-base-uncased')
 text_classifier = load_model(
