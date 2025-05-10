@@ -30,32 +30,34 @@ import pickle
 import urllib.request
 # from transformers import pipeline
 import numpy as np
-# import keras
-# from keras import models
-# from transformers import BertTokenizer, TFBertModel
+import keras
+from keras import models
+from transformers import BertTokenizer, TFBertModel
 
-# bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-# bert_encoder = TFBertModel.from_pretrained('bert-base-uncased')
-# text_classifier = load_model(
-#     "./text_classifier.h5")
-# summarizer = pipeline(
-#     "summarization", model="pszemraj/long-t5-tglobal-base-16384-book-summary")
+tensorflow.config.set_visible_devices([], 'GPU')
 
-
-# params = {
-#     "max_length": 200,
-#     "min_length": 50,
-#     "no_repeat_ngram_size": 3,
-#     "early_stopping": True,
-#     "repetition_penalty": 3.5,
-#     "length_penalty": 0.3,
-#     "encoder_no_repeat_ngram_size": 3,
-#     "num_beams": 4,
-# }
+bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+bert_encoder = TFBertModel.from_pretrained('bert-base-uncased')
+text_classifier = load_model(
+    "./text_classifier.h5")
+summarizer = pipeline(
+    "summarization", model="pszemraj/long-t5-tglobal-base-16384-book-summary")
 
 
-# nlp = spacy.load("en_core_web_sm")
-# reader = easyocr.Reader(["en"])
+params = {
+    "max_length": 200,
+    "min_length": 50,
+    "no_repeat_ngram_size": 3,
+    "early_stopping": True,
+    "repetition_penalty": 3.5,
+    "length_penalty": 0.3,
+    "encoder_no_repeat_ngram_size": 3,
+    "num_beams": 4,
+}
+
+
+nlp = spacy.load("en_core_web_sm")
+reader = easyocr.Reader(["en"])
 
 
 
