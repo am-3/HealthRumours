@@ -33,8 +33,6 @@ import numpy as np
 import keras
 from keras import models
 from transformers import BertTokenizer, TFBertModel
-from django.http import HttpResponse
-from django.template import loader
 
 tensorflow.config.set_visible_devices([], 'GPU')
 
@@ -61,9 +59,7 @@ params = {
 nlp = spacy.load("en_core_web_sm")
 reader = easyocr.Reader(["en"])
 
-def home(request):
-  template = loader.get_template('home.html')
-  return HttpResponse(template.render())
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

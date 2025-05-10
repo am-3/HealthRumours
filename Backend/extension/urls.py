@@ -19,7 +19,6 @@ from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshVie
 from myapp import views
 
 urlpatterns = [
-    path('', views.home, name='Home').
     path('admin/', admin.site.urls),
 	path('insertUser/', views.insertUser, name='insertUser'),
     path('insertNews/', views.insertNews, name='insertNews'),
