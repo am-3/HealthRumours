@@ -4,7 +4,7 @@ ICSSR Project for Health Rumours Detection
 
 ---
 ## Extension Setup Instructions
-### 1. Clone or extract the repo
+### 1. Download the extension from the [repo/release](https://github.com/am-3/HealthRumours/releases)
 ```bash
 unzip extension.zip
 cd extension
