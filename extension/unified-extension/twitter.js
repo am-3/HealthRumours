@@ -14,11 +14,11 @@ function sendData(srcURL, articleContent_value, imageURL_value){
   }
   chrome.runtime.sendMessage({action: 'getToken'}, output=> {
 	  const accessToken = output.result;
-	fetch('http://127.0.0.1:8000/insertSocial/', {
+	fetch('http://mn127.iiitt.ac.in/insertSocial/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'Host': 'http://127.0.0.1:8000/insertSocial/',
+			'Host': 'http://mn127.iiitt.ac.in/insertSocial/',
 			'Authorization': `Bearer ${accessToken}`
  		},
 		body: JSON.stringify(data)
