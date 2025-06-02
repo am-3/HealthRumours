@@ -55,7 +55,7 @@ submitButton.addEventListener("click", function() {
 		proofURL: proofURL_box.value,
 		userFeedback: reasons.value
 	};
-	const url = 'http://127.0.0.1:8000/insertUser/';
+	const url = 'http://mn127.iiitt.ac.in/insertUser/';
 	chrome.storage.local.get(['accessToken'], result => {
 		const accessToken = result.accessToken;
 		console.log(result.accessToken);
@@ -79,7 +79,7 @@ submitButton.addEventListener("click", function() {
 	const justContent = {
 		selectedContent: text.innerHTML
 	}
-	special_url = new URL ('http://127.0.0.1:8000/check/')
+	special_url = new URL ('http://mn127.iiitt.ac.in/check/')
 	Object.keys(justContent).forEach(key => special_url.searchParams.append(key, justContent[key]));
 	chrome.storage.local.get(['accessToken'], result => {
 		const accessToken = result.accessToken;
@@ -88,7 +88,7 @@ submitButton.addEventListener("click", function() {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				'Host': 'http://127.0.0.1:8000/check/',
+				'Host': 'http://mn127.iiitt.ac.in/check/',
 				'Authorization': `Bearer ${accessToken}`,
 			},
 		})
