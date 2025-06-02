@@ -1,18 +1,18 @@
-# import easyocr
-# import cv2 as cv
-# from tensorflow.keras.models import load_model
-# from tensorflow.keras.layers import Concatenate, Flatten
-# from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
-# import keras.applications
-# import transformers
-# import tensorflow
-# from keras.models import load_model
+import easyocr
+import cv2 as cv
+from tensorflow.keras.models import load_model
+from tensorflow.keras.layers import Concatenate, Flatten
+from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
+import keras.applications
+import transformers
+import tensorflow
+from keras.models import load_model
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
 import json
-# import newspaper
+import newspaper
 import random
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -22,13 +22,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate
-# import joblib
+import joblib
 import pandas as pd
 import re
 import pickle
-# import spacy
+import spacy
 import urllib.request
-# from transformers import pipeline
+from transformers import pipeline
 import numpy as np
 import keras
 from keras import models
