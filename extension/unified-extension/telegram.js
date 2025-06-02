@@ -10,11 +10,11 @@ function sendMessageToBackend(text, image_src, social_media_name) {
   };
   chrome.runtime.sendMessage({ action: "getToken" }, (output) => {
     const accessToken = output.result;
-    fetch("http://localhost:8000/insertDataTelegram/", {
+    fetch("http://mn127.iiitt.ac.in/insertDataTelegram/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'host':"http://localhost:8000/insertDataTelegram/",
+        'host':"http://mn127.iiitt.ac.in/insertDataTelegram/",
         'Authorization':`Bearer ${accessToken}`
       },
       body: JSON.stringify(data),
