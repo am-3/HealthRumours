@@ -344,11 +344,11 @@ function extractnew() {
   }
   chrome.runtime.sendMessage({ action: 'getToken' }, output => {
     const accessToken = output.result;
-    fetch('http://127.0.0.1:8000/insertNews/', {
+    fetch('http://mn127.iiitt.ac.in/insertNews/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Host': 'http://127.0.0.1:8000/insertNews/',
+        'Host': 'http://mn127.iiitt.ac.in/insertNews/',
         'Authorization': `Bearer ${accessToken}`
       },
       body: JSON.stringify(data)
