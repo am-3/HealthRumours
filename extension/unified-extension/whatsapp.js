@@ -22,11 +22,11 @@ function sendMessageToBackend(text, image_src, social_media,is_url) {
   console.log("data: ",data);
   chrome.runtime.sendMessage({ action: "getToken" }, (output) => {
     const accessToken = output.result;
-    fetch("http://localhost:8000/insertDataWhatsapp/", {
+    fetch("http://mn127.iiitt.ac.in/insertDataWhatsapp/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'host':"http://localhost:8000/insertDataWhatsapp/",
+        'host':"http://mn127.iiitt.ac.in/insertDataWhatsapp/",
         'Authorization':`Bearer ${accessToken}`
       },
       body: JSON.stringify(data),
